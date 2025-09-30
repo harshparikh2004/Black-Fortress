@@ -23,7 +23,12 @@
           </div>
           <div class="row">
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" minlength="8" required />
+            <div class="input-inline">
+              <input id="password" name="password" type="password" minlength="8" required />
+              <button id="togglePw" type="button" class="btn secondary" aria-label="Show password">Show</button>
+            </div>
+            <div class="pw-meter"><div id="pwBar" class="pw-bar"></div></div>
+            <div id="pwLabel" class="pw-label">Weak</div>
             <div class="hint">Use 8+ chars with letters, numbers and a symbol.</div>
             <div class="error" id="passwordErr"></div>
           </div>
@@ -35,9 +40,9 @@
             </select>
             <div class="error" id="roleErr"></div>
           </div>
-          <button class="btn" type="submit">Create account</button>
+          <button class="btn" id="submitBtn" type="submit"><span id="submitText">Create account</span></button>
           <p class="hint">Have an account? <a href="/login.html">Login</a></p>
-          <div class="error" id="formErr"></div>
+          <div class="toast error" id="formErr" style="display:none"></div>
         </form>
       </div>
     </main>

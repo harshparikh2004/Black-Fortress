@@ -10,23 +10,21 @@
     <main class="container">
       <h1>User Home</h1>
       <div class="card">
-        <div id="me"></div>
-        <button class="btn" id="logoutBtn">Logout</button>
+        <div class="row" style="justify-content:space-between;align-items:center">
+          <div>
+            <h2 style="margin:0">Dashboard</h2>
+            <div id="me" class="hint"></div>
+          </div>
+          <button class="btn" id="logoutBtn">Logout</button>
+        </div>
+        <div class="row" style="margin-top:16px">
+          <div class="card" style="background:#0c1430">
+            <div id="details"></div>
+          </div>
+        </div>
       </div>
     </main>
-    <script type="module">
-      async function load(){
-        const res = await fetch('/api/me/profile', { credentials: 'include' });
-        if(!res.ok){ location.href = '/login.html'; return; }
-        const me = await res.json();
-        document.getElementById('me').textContent = `Logged in as ${me.id} (${me.role})`;
-      }
-      document.getElementById('logoutBtn').addEventListener('click', async ()=>{
-        await fetch('/api/auth/logout', { method:'POST', credentials:'include' });
-        location.href = '/login.html';
-      });
-      load();
-    </script>
+    <script type="module" src="/user.js"></script>
   </body>
   </html>
 

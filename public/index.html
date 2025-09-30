@@ -9,10 +9,21 @@
   <body>
     <main class="container">
       <h1>Welcome to Vault-Tec</h1>
+      <p class="hint">Secure authentication and role-based access for modern apps.</p>
       <nav class="nav">
-        <a href="/login.html">Login</a>
-        <a href="/register.html">Register</a>
+        <a class="btn" href="/register.html">Get Started</a>
+        <a class="btn secondary" href="/login.html">Login</a>
       </nav>
+      <div class="card" style="margin-top:16px">
+        <h2>About us</h2>
+        <p>Vault-Tec is a demo security-focused app showcasing best practices in authentication, authorization, and RBAC. Built with Node.js, Express, JWT, and MongoDB.</p>
+        <ul>
+          <li>Hashed passwords with bcrypt</li>
+          <li>JWT via HttpOnly cookies</li>
+          <li>Role-based access (Admin/User)</li>
+          <li>Rate limiting and account lockout</li>
+        </ul>
+      </div>
     </main>
   </body>
   </html>

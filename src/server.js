@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/vault_tec";
+const MONGO_URI = process.env.MONGO_URI || "mongodb://<username>:<password>@<cluster-host>/<db-name>?retryWrites=true&w=majority"; // placeholder, set in .env
 
 // Basic security and parsing
 app.use(helmet());
