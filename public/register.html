@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register • Vault-Tec</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Create account</h1>
+      <div class="card">
+        <form id="registerForm" novalidate>
+          <div class="row">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" minlength="3" required />
+            <div class="error" id="usernameErr"></div>
+          </div>
+          <div class="row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+            <div class="error" id="emailErr"></div>
+          </div>
+          <div class="row">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" minlength="8" required />
+            <div class="hint">Use 8+ chars with letters, numbers and a symbol.</div>
+            <div class="error" id="passwordErr"></div>
+          </div>
+          <div class="row">
+            <label for="role">Role</label>
+            <select id="role" name="role" required>
+              <option value="user" selected>User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <div class="error" id="roleErr"></div>
+          </div>
+          <button class="btn" type="submit">Create account</button>
+          <p class="hint">Have an account? <a href="/login.html">Login</a></p>
+          <div class="error" id="formErr"></div>
+        </form>
+      </div>
+    </main>
+    <script src="/register.js" type="module"></script>
+  </body>
+  </html>
+
+

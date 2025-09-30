@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User • Vault-Tec</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>User Home</h1>
+      <div class="card">
+        <div id="me"></div>
+        <button class="btn" id="logoutBtn">Logout</button>
+      </div>
+    </main>
+    <script type="module">
+      async function load(){
+        const res = await fetch('/api/me/profile', { credentials: 'include' });
+        if(!res.ok){ location.href = '/login.html'; return; }
+        const me = await res.json();
+        document.getElementById('me').textContent = `Logged in as ${me.id} (${me.role})`;
+      }
+      document.getElementById('logoutBtn').addEventListener('click', async ()=>{
+        await fetch('/api/auth/logout', { method:'POST', credentials:'include' });
+        location.href = '/login.html';
+      });
+      load();
+    </script>
+  </body>
+  </html>
+
+

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin • Vault-Tec</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Admin Dashboard</h1>
+      <div class="card">
+        <button class="btn" id="logoutBtn">Logout</button>
+        <div id="users"></div>
+      </div>
+    </main>
+    <script type="module">
+      async function ensureAdmin(){
+        const res = await fetch('/api/me/profile', { credentials: 'include' });
+        if(!res.ok){ location.href = '/login.html'; return; }
+        const me = await res.json();
+        if(me.role !== 'admin'){ location.href = '/user.html'; }
+      }
+      async function load(){
+        await ensureAdmin();
+        const res = await fetch('/api/admin/users', { credentials: 'include' });
+        if(!res.ok) return;
+        const data = await res.json();
+        const root = document.getElementById('users');
+        root.innerHTML = '';
+        data.users.forEach(u => {
+          const row = document.createElement('div');
+          row.className = 'row';
+          row.innerHTML = `<strong>${u.username}</strong> <span class="hint">${u.email}</span>
+          <select data-id="${u._id}">
+            <option ${u.role==='user'?'selected':''}>user</option>
+            <option ${u.role==='admin'?'selected':''}>admin</option>
+          </select>`;
+          row.querySelector('select').addEventListener('change', async (e)=>{
+            await fetch(`/api/admin/users/${u._id}/role`,{ method:'PATCH', headers:{'Content-Type':'application/json'}, credentials:'include', body:JSON.stringify({role:e.target.value})});
+          });
+          root.appendChild(row);
+        });
+      }
+      document.getElementById('logoutBtn').addEventListener('click', async ()=>{
+        await fetch('/api/auth/logout', { method:'POST', credentials:'include' });
+        location.href = '/login.html';
+      });
+      load();
+    </script>
+  </body>
+  </html>
+
+
