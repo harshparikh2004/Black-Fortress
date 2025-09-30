@@ -20,9 +20,9 @@ app.use(helmet({
     useDefaults: true,
     directives: {
       "default-src": ["'self'"],
-      "script-src": ["'self'", "https://www.google.com", "https://www.gstatic.com"],
-      "frame-src": ["'self'", "https://www.google.com"],
-      "connect-src": ["'self'", "https://www.google.com", "https://www.gstatic.com"],
+      "script-src": ["'self'", "https://www.google.com", "https://www.gstatic.com", "https://www.recaptcha.net"],
+      "frame-src": ["'self'", "https://www.google.com", "https://www.recaptcha.net"],
+      "connect-src": ["'self'", "https://www.google.com", "https://www.gstatic.com", "https://www.recaptcha.net"],
       "img-src": ["'self'", "data:"]
     }
   }
