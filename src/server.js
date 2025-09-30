@@ -22,7 +22,7 @@ app.use(helmet({
       "default-src": ["'self'"],
       "script-src": ["'self'", "https://www.google.com", "https://www.gstatic.com"],
       "frame-src": ["'self'", "https://www.google.com"],
-      "connect-src": ["'self'"],
+      "connect-src": ["'self'", "https://www.google.com", "https://www.gstatic.com"],
       "img-src": ["'self'", "data:"]
     }
   }
