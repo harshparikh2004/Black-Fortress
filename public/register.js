@@ -68,10 +68,13 @@ form.addEventListener("submit", async (e) => {
   try {
     submitBtn.disabled = true;
     submitText.innerHTML = '<span class="spinner"></span> Creating...';
+    const captchaToken = typeof window.getCaptchaTokenPromise === 'function'
+      ? (await window.getCaptchaTokenPromise())
+      : (window.captchaToken || "");
     const res = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password, role, captchaToken: window.captchaToken || "" })
+      body: JSON.stringify({ username, email, password, role, captchaToken })
     });
     const data = await res.json();
     if (!res.ok) { throw new Error(data.error || "Registration failed"); }

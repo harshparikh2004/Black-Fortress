@@ -36,7 +36,14 @@ function refreshToken(siteKey) {
 
 (async function init() {
     const siteKey = await loadSiteKey();
+    window.recaptchaSiteKey = siteKey;
     await injectRecaptcha(siteKey);
     refreshToken(siteKey);
     setInterval(() => refreshToken(siteKey), 90 * 1000);
+    // Expose a promise helper to retrieve a fresh token on-demand
+    window.getCaptchaTokenPromise = async function () {
+        const key = window.recaptchaSiteKey || '';
+        if (!key || !window.grecaptcha) { return ''; }
+        try { return await grecaptcha.execute(key, { action: 'submit' }); } catch { return ''; }
+    };
 })();

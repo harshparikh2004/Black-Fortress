@@ -30,11 +30,15 @@ form.addEventListener("submit", async (e) => {
   try {
     submitBtn.disabled = true;
     submitText.innerHTML = '<span class="spinner"></span> Signing in...';
+    // Ensure we have a fresh CAPTCHA token
+    const captchaToken = typeof window.getCaptchaTokenPromise === 'function'
+      ? (await window.getCaptchaTokenPromise())
+      : (window.captchaToken || "");
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ email, password, captchaToken: window.captchaToken || "" })
+      body: JSON.stringify({ email, password, captchaToken })
     });
     const data = await res.json();
     if (!res.ok) { throw new Error(data.error || "Login failed"); }
