@@ -15,7 +15,18 @@ const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://<username>:<password>@<cluster-host>/<db-name>?retryWrites=true&w=majority"; // placeholder, set in .env
 
 // Basic security and parsing
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    useDefaults: true,
+    directives: {
+      "default-src": ["'self'"],
+      "script-src": ["'self'", "https://www.google.com", "https://www.gstatic.com"],
+      "frame-src": ["'self'", "https://www.google.com"],
+      "connect-src": ["'self'"],
+      "img-src": ["'self'", "data:"]
+    }
+  }
+}));
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +57,11 @@ import meRoutes from "./routes/me.js";
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/me", meRoutes);
+
+// Public config (exposes only non-sensitive data)
+app.get("/api/config/public", (_req, res) => {
+  res.json({ recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY || "" });
+});
 
 // 404 handler
 app.use((req, res) => {
